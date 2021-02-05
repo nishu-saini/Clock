@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Clock</title>
+    
+    <style>
+        canvas {
+            border: 1px solid grey;
+            border-radius: 50%;          
+        }
+        
+    </style>  
+      
+  </head>
+
+  <body>
+      <!-- Making a clock -->
+      <canvas id="clock" width="500" height="500">
+          <!-- Incase canvas doesn't work -->
+          Please upgrade your browser!
+            
+      </canvas>
+      
+      <script>
+          function setTime() {
+              var canvas = document.getElementById('clock');
+              var context = canvas.getContext('2d');
+              var clockRadius = canvas.width/2;
+
+              // big black clock circle...
+              context.beginPath();
+              context.fillStyle = "black";
+              context.arc(clockRadius, clockRadius, clockRadius, 0, 2*Math.PI);
+              context.fill();
+
+              context.fillStyle = 'white';
+              context.font = clockRadius/10 +'px italic';
+              context.textAlign = 'center';
+              context.textBaseline = 'middle';
+
+              for(i=1; i<=12; i++) {
+                context.fillText(i, clockRadius + .9*clockRadius*Math.sin(2*i*Math.PI/12), clockRadius - .9*clockRadius*Math.cos(2*i*Math.PI/12));
+
+              }
+
+              var date = new Date();
+              var hours = date.getHours();
+              var minutes = date.getMinutes();
+              var seconds = date.getSeconds();
+          
+              var fullHours = hours%12 + minutes/60 + seconds/3600;
+              var fullMinutes = minutes%60 + seconds/60;
+
+              // defining angles for hour, minute and second needle...
+              var hourAngle = (2*Math.PI*fullHours)/12;
+              var minuteAngle = (2*Math.PI*fullMinutes)/60;
+              var secondAngle = (2*Math.PI*seconds)/60;
+
+              // hour needle...
+              context.moveTo(clockRadius,clockRadius);
+              context.strokeStyle = 'white';
+              context.lineTo(clockRadius + .7*clockRadius*Math.sin(hourAngle), clockRadius - .7*clockRadius*Math.cos(hourAngle));
+              context.lineWidth = 5;
+              context.stroke();
+
+              // minute needle...
+              context.moveTo(clockRadius,clockRadius);
+              context.lineTo(clockRadius + .8*clockRadius*Math.sin(minuteAngle), clockRadius - .8*clockRadius*Math.cos(minuteAngle));
+              context.lineWidth = 3;
+              context.stroke();
+
+              // second needle...
+              context.moveTo(clockRadius,clockRadius);
+              context.lineTo(clockRadius + .9*clockRadius*Math.sin(secondAngle), clockRadius - .9*clockRadius*Math.cos(secondAngle));
+              context.lineWidth = 2;
+              context.stroke();
+              
+              // small white circle at cetre..
+              context.beginPath();
+              context.arc(clockRadius, clockRadius, 10, 0, 2*Math.PI);
+              context.fill(); 
+            
+          }
+          
+          setInterval(setTime, 1000);
+          
+      </script>
+    
+  </body>
+</html>
