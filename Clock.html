@@ -2,23 +2,21 @@
 <html>
   <head>
     <title>Clock</title>
-    
     <style>
         canvas {
             border: 1px solid grey;
-            border-radius: 50%;          
+            border-radius: 50%;
+            margin: 0 auto;
         }
         
     </style>  
-      
   </head>
 
   <body>
       <!-- Making a clock -->
       <canvas id="clock" width="500" height="500">
           <!-- Incase canvas doesn't work -->
-          Please upgrade your browser!
-            
+          Please upgrade your browser!   
       </canvas>
       
       <script>
@@ -75,7 +73,7 @@
               context.lineWidth = 2;
               context.stroke();
               
-              // small white circle at cetre..
+              // small white circle at centre..
               context.beginPath();
               context.arc(clockRadius, clockRadius, 10, 0, 2*Math.PI);
               context.fill(); 
@@ -83,7 +81,6 @@
           }
           
           setInterval(setTime, 1000);
-          
       </script>
     
   </body>
